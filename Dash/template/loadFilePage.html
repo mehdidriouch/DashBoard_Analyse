@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Dashboard - STATISTIQUES</title>
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <!-- CDN SWEET ALERT (sweetalert) -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- LottieFile CDN -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <!-- Ajout de l'icône dans la balise head -->
+    <link rel="icon" href="{% static 'imgs/splash.png' %}" type="image/png">
+    <!-- Ajout de l'icône dans la balise head -->
+    <link rel="icon" href="{% static 'img/splash.png' %}" type="image/png">
+    <!-- ======= Styles LoadPage ====== -->
+    <link rel="stylesheet" href={% static "css/style_Page_Load_File.css" %}>
+</head>
+
+<body>
+    <div
+        class="relative min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-cover relative items-center">
+        <div class="sm:max-w-lg w-full p-10 bg-transparent rounded-xl z-10">
+            <div class="text-center">
+                <center><img src="{% static 'imgs/logo.png' %}" height="70px"></center>
+                <h2 class="mt-1 text-3xl font-bold text-transparent"
+                    style="text-shadow: 2px 2px #00000044; font-family: 'Times New Roman', Times, serif;">
+                    SERVICE DES STATISTIQUES
+                </h2>
+            </div>
+            <form class="mt-5 space-y-3" action="{% url 'Load_File' %}" method="POST" enctype="multipart/form-data" required>
+                {% csrf_token %}
+                <div class="grid grid-cols-1 space-y-2">
+                    <label class="text-sm font-bold text-gray-500 tracking-wide">Télécharger Documents Excel</label>
+                    <div class="flex items-center justify-center w-full">
+                        <label
+                            class="flex flex-col rounded-lg border-4 border-dashed w-full h-60 p-10 group text-center shadow-lg cursor-pointer focus:shadow-outline">
+                            <div
+                                class="h-full w-full text-center flex flex-col items-center justify-center items-center mt-0 ">
+                                <lottie-player
+                                    src="https://lottie.host/8e44224b-2677-4e2d-892f-b5fbe10a358b/wP8xQ2xkDZ.json"
+                                    background="transparent" speed="1" style="width: 350px; height: 200px" loop autoplay
+                                    direction="1" mode="normal">
+                                </lottie-player>
+                            </div>
+                            <input type="file" name="multiexcelfile" class="hidden" multiple
+                                accept=".xls, .xlsx">
+                        </label>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-300">
+                    <span>Format De Fichiers: XLSX, XLS (EXCEL) </span>
+                </p>
+                <div>
+                    <button type="submit" class="my-5 w-full flex justify-center bg-transparent text-white p-4  rounded-full tracking-wide
+                                    font-semibold  focus:outline-none focus:shadow-outline hover:bg-green-600 shadow-lg cursor-pointer
+                                    transition ease-in duration-300"
+                        style="text-shadow: 2px 2px #000000f5; font-family: 'Times New Roman', Times, serif; font-size: x-large;">
+                        Confirmer
+                    </button>
+                </div>
+            </form>
+        </div>
+        <!-- BackGround Annimation -->
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+    <!-- Script Message Alert -->
+    {% block aleartSwal %}
+    {% for message in messages %}
+    <script>
+        var m = '{{ message }}'
+        var tag = '{{ message.tags }}'
+        var title = ''
+        var type = ''
+        if (tag === 'success') {
+            title = 'Parfait ✅'
+            type = 'success'
+        } else if (tag === 'error') {
+            title = 'Erreur❌'
+            type = 'error'
+        } else if (tag === 'warning') {
+            title = 'ATTENTION ⚠️'
+            type = 'warning'
+        } else if (tag === 'info') {
+            title = '🛈🛈PS...'
+            type = 'info'
+        }
+        swal(title, m, type)
+    </script>
+    {% endfor %}
+    {% endblock aleartSwal %}
+
+    <!-- OUR CDN LINKS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>
